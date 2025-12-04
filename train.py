@@ -54,15 +54,28 @@ def main():
     # TODO: Create TabularDataset using TabularDatasetFactory
     # Data is located at:
     # "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv"
-
-    path = "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv"
-    ds = TabularDatasetFactory.from_delimited_files(path)
     
-    x, y = clean_data(ds)
+    #path = "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv" 
+    #ds = TabularDatasetFactory.from_delimited_files(path) 
+    
+    # azureml-core of version 1.0.72 or higher is required # azureml-dataprep[pandas] of version 1.1.34 or higher is required 
+    from azureml.core import Workspace, Dataset 
+    subscription_id = '81cefad3-d2c9-4f77-a466-99a7f541c7bb' 
+    resource_group = 'aml-quickstarts-291883' 
+    workspace_name = 'quick-starts-ws-291883' 
+    
+    workspace = Workspace(subscription_id, resource_group, workspace_name) 
+    ds = Dataset.get_by_name(workspace, name='bankmarketing_train') print(type(ds)) 
+    
+    df = ds.to_pandas_dataframe() 
+    print(df.head()) 
+    
+    x, y = clean_data(ds) 
+    print("Shape of x:", x.shape) 
+    print("Shape of y:", y.shape)
 
     # TODO: Split data into train and test sets.
-
-    x_train, y_train, x_test, y_test = train_test_split(x, y, test_size=0.3, random_state=50)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
 
     model = LogisticRegression(C=args.C, max_iter=args.max_iter).fit(x_train, y_train)
 
