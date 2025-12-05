@@ -9,6 +9,7 @@ from sklearn.preprocessing import OneHotEncoder
 import pandas as pd
 from azureml.core.run import Run
 from azureml.data.dataset_factory import TabularDatasetFactory
+from azureml.core import Workspace, Dataset
 
 def clean_data(data):
     # Dict for cleaning data
@@ -31,7 +32,7 @@ def clean_data(data):
     x_df.drop("education", inplace=True, axis=1)
     x_df = x_df.join(education)
     x_df["month"] = x_df.month.map(months)
-    x_df["day_of_week"] = x_df.day_of_week.map(weekdays)
+    x_df["day"] = x_df.day
     x_df["poutcome"] = x_df.poutcome.apply(lambda s: 1 if s == "success" else 0)
 
     y_df = x_df.pop("y").apply(lambda s: 1 if s == "yes" else 0)
@@ -51,28 +52,15 @@ def main():
     run.log("Regularization Strength:", np.float(args.C))
     run.log("Max iterations:", np.int(args.max_iter))
 
-    # TODO: Create TabularDataset using TabularDatasetFactory
-    # Data is located at:
-    # "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv"
-    
-    #path = "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv" 
-    #ds = TabularDatasetFactory.from_delimited_files(path) 
-    
-    # azureml-core of version 1.0.72 or higher is required # azureml-dataprep[pandas] of version 1.1.34 or higher is required 
-    from azureml.core import Workspace, Dataset 
-    subscription_id = '81cefad3-d2c9-4f77-a466-99a7f541c7bb' 
-    resource_group = 'aml-quickstarts-291883' 
-    workspace_name = 'quick-starts-ws-291883' 
-    
-    workspace = Workspace(subscription_id, resource_group, workspace_name) 
-    ds = Dataset.get_by_name(workspace, name='bankmarketing_train') print(type(ds)) 
-    
-    df = ds.to_pandas_dataframe() 
-    print(df.head()) 
+    subscription_id = '81cefad3-d2c9-4f77-a466-99a7f541c7bb'
+    resource_group = 'aml-quickstarts-291905'
+    workspace_name = 'quick-starts-ws-291905'
+
+    workspace = Workspace(subscription_id, resource_group, workspace_name)
+
+    ds = Dataset.get_by_name(workspace, name='bankmarketing_train')
     
     x, y = clean_data(ds) 
-    print("Shape of x:", x.shape) 
-    print("Shape of y:", y.shape)
 
     # TODO: Split data into train and test sets.
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
