@@ -17,36 +17,37 @@ The data is related with direct marketing campaigns (phone calls) of a Portugues
 The classification goal is to predict if the client will subscribe a term deposit (variable y).
 
 After running the experiments, the best performing model was a VotingEnsemble, achieving an accuracy of 0.90799. Below are the top results:
-1- VotingEnsemble: 0.9079870314518954
-2- StackEnsemble: 0.9067262660515146
-3- LightGBM: 0.9059963517641572
-4- XGBoostClassifier: 0.9054433738232561
-5- XGBoostClassifier: 0.9040278165165234
-6- XGBoostClassifier: 0.9032757832289446
-7- XGBoostClassifier: 0.9032536612933524
-8- XGBoostClassifier: 0.9032315256593612
-9- XGBoostClassifier: 0.903120962947338
-10- LightGBM: 0.9016832308683319
-11- LogisticRegression: 0.90157267109168
-12- LogisticRegression: 0.9013736020466034
-13- XGBoostClassifier: 0.9009311809469832
-14- LogisticRegression: 0.8994492813164428
-15- LightGBM: 0.899427169165421
-16- XGBoostClassifier: 0.8992944336380386
-17- XGBoostClassifier: 0.8988078440084271
-18- XGBoostClassifier: 0.8977682598041445
-19- XGBoostClassifier: 0.8965738592320838
-20- LightGBM: 0.8926367662323041
-21- RandomForest: 0.8843644538840763
-22- ExtremeRandomTrees: 0.8830152144397247
-23- LightGBM: 0.8830152144397247
-24- LightGBM: 0.8830152144397247
-25- LightGBM: 0.8830152144397247
-26- ...
-27- RandomForest: 0.8103117368096112
-28- RandomForest: 0.7761609642482945
-29- RandomForest: 0.7604344147769089
-30- ExtremeRandomTrees: 0.6899873824048726
+1. VotingEnsemble: 0.9079870314518954
+2. StackEnsemble: 0.9067262660515146
+3. LightGBM: 0.9059963517641572
+4. XGBoostClassifier: 0.9054433738232561
+5. XGBoostClassifier: 0.9040278165165234
+6. XGBoostClassifier: 0.9032757832289446
+7. XGBoostClassifier: 0.9032536612933524
+8. XGBoostClassifier: 0.9032315256593612
+9. XGBoostClassifier: 0.903120962947338
+10. LightGBM: 0.9016832308683319
+11. LogisticRegression: 0.90157267109168
+12. LogisticRegression: 0.9013736020466034
+13. XGBoostClassifier: 0.9009311809469832
+14. LogisticRegression: 0.8994492813164428
+15. LightGBM: 0.899427169165421
+16. XGBoostClassifier: 0.8992944336380386
+17. XGBoostClassifier: 0.8988078440084271
+18. XGBoostClassifier: 0.8977682598041445
+19. XGBoostClassifier: 0.8965738592320838
+20. LightGBM: 0.8926367662323041
+21. RandomForest: 0.8843644538840763
+22. ExtremeRandomTrees: 0.8830152144397247
+23. LightGBM: 0.8830152144397247
+24. LightGBM: 0.8830152144397247
+25. LightGBM: 0.8830152144397247
+26. ...
+27. RandomForest: 0.8103117368096112
+28. RandomForest: 0.7761609642482945
+29. RandomForest: 0.7604344147769089
+30. ExtremeRandomTrees: 0.6899873824048726
+
 
 ## Scikit-learn Pipeline
 Before any training or compute configuration, the Azure environment was initialized by loading the workspace and creating an experiment using the Azure ML SDK.
