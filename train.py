@@ -10,6 +10,7 @@ import pandas as pd
 from azureml.core.run import Run
 from azureml.data.dataset_factory import TabularDatasetFactory
 from azureml.core import Workspace, Dataset
+import joblib
 
 def clean_data(data):
     # Dict for cleaning data
@@ -52,9 +53,9 @@ def main():
     run.log("Regularization Strength:", np.float(args.C))
     run.log("Max iterations:", np.int(args.max_iter))
 
-    subscription_id = '81cefad3-d2c9-4f77-a466-99a7f541c7bb'
-    resource_group = 'aml-quickstarts-291905'
-    workspace_name = 'quick-starts-ws-291905'
+    subscription_id = 'f5091c60-1c3c-430f-8d81-d802f6bf2414'
+    resource_group = 'aml-quickstarts-291922'
+    workspace_name = 'quick-starts-ws-291922'
 
     workspace = Workspace(subscription_id, resource_group, workspace_name)
 
@@ -69,6 +70,9 @@ def main():
 
     accuracy = model.score(x_test, y_test)
     run.log("Accuracy", np.float(accuracy))
+
+    os.makedirs('outputs', exist_ok=True)
+    joblib.dump(model,'outputs/model.joblib')
 
 if __name__ == '__main__':
     main()
